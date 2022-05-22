@@ -9,6 +9,10 @@ namespace BookLibrary.Domain.Entities
 {
     public class Category : BaseEntity
     {
+        public Category()
+        {
+            Books = new List<Book>();
+        }
       
         [StringLength(125)]
         public string Name { get; set; }       
