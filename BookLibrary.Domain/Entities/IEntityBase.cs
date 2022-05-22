@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BookLibrary.Infrastructure.Data.DatabaseContexts
+namespace BookLibrary.Domain.Entities
 {
-    public class BookLibraryDbContext 
+    public interface IEntityBase
     {
-       
+        public int Id { get; set; }
     }
 }

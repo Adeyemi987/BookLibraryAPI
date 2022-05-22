@@ -8,11 +8,9 @@ using System.Threading.Tasks;
 
 namespace BookLibrary.Domain.Entities
 {
-    public class Book
+    public class Book : BaseEntity
     {
-        [Key]
-        public int Id { get; set; }
-
+       
         [StringLength(125)]
         public string Title { get; set; }
         public string Author { get; set; }
@@ -20,14 +18,15 @@ namespace BookLibrary.Domain.Entities
         public DateTime PublishedDate { get; set; }
         public string ISBN { get; set; }
         [ForeignKey("Category")]
-        public int categoryId { get; set; }
-        public Category category { get; set; }
-        public DateTime Created { get; set; } = DateTime.Today;
-        public DateTime Updated { get; set; } = DateTime.Today;
+        public int CategoryId { get; set; }
+        public Category Category { get; set; }
+      
         [StringLength(500)]
         public string Description { get; set; }
         public string ImageUrl { get; set; }
         public bool IsFavorite { get; set; }
+
+        
 
     }
 }
