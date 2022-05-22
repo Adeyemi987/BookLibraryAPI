@@ -1,4 +1,5 @@
 ﻿using BookLibrary.Domain.Entities;
+using BookLibrary.Infrastructure.Data.DatabaseContexts;
 using BookLibrary.Infrastructure.Services.Abstractions;
 using System;
 using System.Collections.Generic;
@@ -8,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace BookLibrary.Infrastructure.Services.Implementations
 {
-    public class BookServices : IBookServices
+    public class BookServices : BookQueryCommand<Book>, IBookServices
     {
-        public List<Book> GetBooks()
-        {
-            return new List<Book> { };
-        }
+       
+        public BookServices(BookLibraryDbContext context) : base(context) { }
+
+        
     }
 }
