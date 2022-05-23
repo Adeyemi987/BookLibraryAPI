@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BookLibrary.Infrastructure.Services.Implementations
 {
-    public class BookServices : BookQueryCommand<Book>, IBookServices
+    public class BookServices : BookLibraryGenericQuery<Book>, IBookServices
     {
        
         public BookServices(BookLibraryDbContext context) : base(context) { }
