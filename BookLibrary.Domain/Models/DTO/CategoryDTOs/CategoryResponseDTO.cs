@@ -4,13 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BookLibrary.Domain.Entities
+namespace BookLibrary.Domain.Models.DTO.CategoryDTOs
 {
-    public class BaseEntity : IEntityBase
+    public class CategoryResponseDTO : CategoryRequestDTO
     {
         public int Id { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.Now;
-        public DateTime UpdatedAt { get; set; }
-
     }
 }

@@ -14,7 +14,7 @@ namespace BookLibrary.Infrastructure.Extensions
         public static void ResolveInfrastructureServices(this IServiceCollection services)
         {
             services.AddScoped<IBookServices, BookServices>();
-            services.AddScoped<ICategoryServices, ICategoryServices>();
+            services.AddScoped<ICategoryServices, CategoryServices>();
         }
     }
 

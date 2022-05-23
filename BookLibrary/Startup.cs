@@ -1,5 +1,6 @@
 using BookLibrary.Infrastructure.Data.DatabaseContexts;
 using BookLibrary.Infrastructure.Extensions;
+using BookLibrary.Infrastructure.Helpers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -33,7 +34,7 @@ namespace BookLibrary
            );
 
             services.ResolveInfrastructureServices();
-
+            services.AddAutoMapper(typeof(MapperInitializer));
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
