@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BookLibrary.Domain.Services.InfrastructureServices
 {
-    public interface IBookQueryCommand<T> where T : class, IEntityBase, new()
+    public interface IBookLibraryGenericQuery<T> where T : class, IEntityBase, new()
     {
         Task<IEnumerable<T>> GetAllAsync();
         Task<IEnumerable<T>> GetAllAsync(params Expression<Func<T, object>>[] includeProperties);

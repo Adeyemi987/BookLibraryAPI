@@ -34,6 +34,6 @@ namespace BookLibrary.Domain.Models.DTO.BookDTOs
         [StringLength(maximumLength: 1050, ErrorMessage = "Description Too long"), DataType(DataType.Text)]
         public string Description { get; set; }
 
-        public bool? IsFavorite { get; set; } = false;
+        public bool? IsFavorite { get; set; }
     }
 }
