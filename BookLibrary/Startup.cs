@@ -1,3 +1,4 @@
+using BookLibrary.Extensions;
 using BookLibrary.Infrastructure.Data.DatabaseContexts;
 using BookLibrary.Infrastructure.Extensions;
 using BookLibrary.Infrastructure.Helpers;
@@ -19,6 +20,7 @@ namespace BookLibrary
 {
     public class Startup
     {
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -30,27 +32,39 @@ namespace BookLibrary
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<BookLibraryDbContext>(options =>
-               options.UseSqlServer(Configuration.GetConnectionString("BookLibraryConnection"))
-           );
+                options.UseSqlServer(Configuration.GetConnectionString("BookLibraryConnection"))
+            );
 
-            services.ResolveInfrastructureServices();
+            services.DomainServicesResolve();
+            services.InfrastructureServicesResolve();
+
+            services.ConfigureHttpCacheHeaders();
             services.AddAutoMapper(typeof(MapperInitializer));
+
             services.AddControllers();
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "BookLibrary", Version = "v1" });
-            });
+
+            services.AddCors();
+            services.AddSwagger();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseCors(opt =>
+            opt.WithOrigins() // put the url of your trusted app to consume this API inside the WithOrigin parenthesis E.g WithOrigin("localhost:3003")
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            );
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "BookLibrary v1"));
             }
+
+            app.ConfigureExceptionhandler();
+            app.UseHttpCacheHeaders();
 
             app.UseRouting();
 
@@ -61,5 +75,6 @@ namespace BookLibrary
                 endpoints.MapControllers();
             });
         }
+
     }
 }

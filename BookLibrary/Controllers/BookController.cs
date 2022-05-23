@@ -2,6 +2,7 @@
 using AutoMapper;
 using BookLibrary.Domain.Entities;
 using BookLibrary.Domain.Models.DTO.BookDTOs;
+using BookLibrary.Domain.Models.Pagination;
 using BookLibrary.Domain.Services.InfrastructureServices;
 using BookLibrary.Infrastructure.Data.DatabaseContexts;
 using Microsoft.AspNetCore.Http;
@@ -34,17 +35,17 @@ namespace BookLibrary.Controllers
         /// </summary>
         ///<response code="200">Returned all books or empty array</response>
         ///
-        //[HttpGet]
-        //[ProducesResponseType(StatusCodes.Status200OK)]
-        //[ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        //[ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
 
-        //public async Task<ActionResult> GetAllBooksAsync([FromQuery] RequestParams requestParams)
-        //{
-        //    var books = await _bookQueryCommand.GetAllAsync(requestParams);
-        //    var bookLists = _mapper.Map<IList<BookResponseDTO>>(books).Where(f => f.IsFavorite == true);
-        //    return Ok(bookLists);
-        //}
+        public async Task<ActionResult> GetAllBooksAsync([FromQuery] RequestParams requestParams)
+        {
+            var books = await _bookQueryCommand.GetAllAsync(requestParams);
+            var bookLists = _mapper.Map<IList<BookResponseDTO>>(books).Where(f => f.IsFavorite == true);
+            return Ok(bookLists);
+        }
 
         /// <summary>
         /// Get Book by id
@@ -155,14 +156,14 @@ namespace BookLibrary.Controllers
         /// Get list of favorite Books.
         /// </summary>
         ///<response code="200">Returned all favorite books or empty array</response>
-        //[HttpGet("favorite")]
-        //[ProducesResponseType(StatusCodes.Status200OK)]
-        //[ProducesResponseType(StatusCodes.Status404NotFound)]
-        //public async Task<IActionResult> GetFavoriteBooksAsync([FromQuery] RequestParams requestParams)
-        //{
-        //    var books = await _bookQueryCommand.GetAllAsync(requestParams);
-        //    var favoriteBookList = _mapper.Map<IList<BookResponseDTO>>(books).Where(f => f.IsFavorite == true);
-        //    return Ok(favoriteBookList);
-        //}
+        [HttpGet("favorite")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetFavoriteBooksAsync([FromQuery] RequestParams requestParams)
+        {
+            var books = await _bookQueryCommand.GetAllAsync(requestParams);
+            var favoriteBookList = _mapper.Map<IList<BookResponseDTO>>(books).Where(f => f.IsFavorite == true);
+            return Ok(favoriteBookList);
+        }
     }
 }
